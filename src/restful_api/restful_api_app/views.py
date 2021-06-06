@@ -1,12 +1,13 @@
 from django.shortcuts import render
 from rest_framework.views import APIView
+from rest_framework import viewsets
 from rest_framework.response import Response
 from rest_framework import status
 from . import serializers
 
 # Create your views here.
 
-class helloApiView(APIView):
+class helloApiView(APIView):   
 
    # Tell DJando which serializer we'll be using for this endpoint.
    serializer_class = serializers.HelloSerializer
@@ -45,6 +46,21 @@ class helloApiView(APIView):
       return Response({'method': 'patch'})
 
    def delete(self, request, pk = None):
-
+      
       """ Handles deleting an object """
       return Response({'method': 'delete'})
+
+class helloViewSet(viewsets.ViewSet):
+
+   def list(self, request):
+
+      a_viewset = [
+         'This is a test', 
+         'We are using HTTP get method',
+         'This data comes from views file using VIEWSET'
+      ]
+
+      return Response({
+         'message': 'Hello from views file',
+         'data':a_viewset
+      })
