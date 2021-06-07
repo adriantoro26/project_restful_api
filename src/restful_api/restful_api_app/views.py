@@ -52,6 +52,9 @@ class helloApiView(APIView):
 
 class helloViewSet(viewsets.ViewSet):
 
+   # Tell DJando which serializer we'll be using for this endpoint.
+   serializer_class = serializers.HelloSerializer
+
    def list(self, request):
 
       a_viewset = [
@@ -64,3 +67,45 @@ class helloViewSet(viewsets.ViewSet):
          'message': 'Hello from views file',
          'data':a_viewset
       })
+
+   # POST
+   def create(self, request):
+
+      serializer = serializers.HelloSerializer(data = request.data)
+
+      if serializer.is_valid():
+         name = serializer.data.get('name')
+         message = f'Hello {name}'
+
+         return Response({'message': message})
+      else:
+         return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST)
+
+   #GET + url param
+   def retrieve(self, request, pk = None):
+
+      """ Handles getting an object by its ID """
+
+      return Response ({'http_method': 'get'})
+
+   #PUT
+   def update(self, request, pk = None):
+
+      """ Handles updating an object by its ID """
+
+      return Response ({'http_method': 'put'})
+   
+   #PATCH
+   def partial_update(self, request, pk = None):
+
+      """ Handles updating a part of an object by its ID """
+
+      return Response ({'http_method': 'patch'})
+   
+   #DELETE
+   def destroy(self, request, pk = None):
+
+      """ Handles deleting an object by its ID """
+
+      return Response ({'http_method': 'delete'})  
+   
