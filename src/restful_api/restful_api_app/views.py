@@ -4,10 +4,11 @@ from rest_framework import viewsets
 from rest_framework.response import Response
 from rest_framework import status
 from . import serializers
+from . import models
 
 # Create your views here.
 
-class helloApiView(APIView):   
+class HelloApiView(APIView):   
 
    # Tell DJando which serializer we'll be using for this endpoint.
    serializer_class = serializers.HelloSerializer
@@ -50,7 +51,7 @@ class helloApiView(APIView):
       """ Handles deleting an object """
       return Response({'method': 'delete'})
 
-class helloViewSet(viewsets.ViewSet):
+class HelloViewSet(viewsets.ViewSet):
 
    # Tell DJando which serializer we'll be using for this endpoint.
    serializer_class = serializers.HelloSerializer
@@ -107,5 +108,14 @@ class helloViewSet(viewsets.ViewSet):
 
       """ Handles deleting an object by its ID """
 
-      return Response ({'http_method': 'delete'})  
-   
+      return Response ({'http_method': 'delete'})
+
+class UserViewSet(viewsets.ModelViewSet):
+
+   """ Handles creating, reading, updating and deleting  (CRUD) user profiles """
+   # Tell DJando which serializer we'll be using for this endpoint.
+   serializer_class = serializers.UserSerializer
+
+   # Tells the viewset how to retrieve the objects from the database.
+   queryset = models.User.objects.all()
+   print(models.User.objects)
