@@ -24,7 +24,6 @@ class UserSerializer(serializers.ModelSerializer):
 
       # This will encrypt the password first and then assign it to the user.
       user.set_password(validated_data['password'])
-      print('1.HERE')
 
       # Save user into database.
       user.save()
