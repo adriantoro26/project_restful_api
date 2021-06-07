@@ -29,3 +29,13 @@ class UserSerializer(serializers.ModelSerializer):
       user.save()
 
       return user
+
+class FeedItemSerializer(serializers.ModelSerializer):
+   """ A serializer for feed objects """
+
+   class Meta:
+      model = models.FeedItem
+      fields = ('id', 'user_profile', 'status_text', 'created_on')
+      # This makes sure that users don't create feed items for other users in the system.
+      # Therefore we'll create feed items for the currently logged in user.
+      extra_kwargs = {'user_profile':{'read_only':True}}

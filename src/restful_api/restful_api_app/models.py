@@ -5,6 +5,8 @@ from django.contrib.auth.models import AbstractBaseUser
 from django.contrib.auth.models import PermissionsMixin
 # Base user manager
 from django.contrib.auth.models import BaseUserManager
+# Base Djando content type model.
+from django.contrib.auth.models import ContentType
 
 class UserManager(BaseUserManager):
 
@@ -58,3 +60,17 @@ class User(AbstractBaseUser, PermissionsMixin):
    def __str__(self):
       # Convert the object to a string.
       return self.email
+
+# Feed model
+class FeedItem(models.Model):
+   """ Profile status update """
+   # Relation between feeds and user. In case user gets deleted, the feeds
+   # will be deleted
+   user_profile = models.ForeignKey('User', on_delete=models.CASCADE)
+
+   status_text = models.CharField(max_length=255)
+   created_on = models.DateTimeField(auto_now_add=True)
+
+   def __str__(self):
+      """ Returns the object as string  """
+      return self.status_text

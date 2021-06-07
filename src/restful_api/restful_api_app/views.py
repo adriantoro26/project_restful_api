@@ -141,3 +141,18 @@ class LoginViewSet(viewsets.ViewSet):
       # return ObtainAuthToken().post(request)
       # ref: https://stackoverflow.com/questions/66795116/drf-obtainauthtoken-object-has-no-attribute-request
       return ObtainAuthToken().as_view()(request=request._request)
+
+class FeedItemViewSet(viewsets.ModelViewSet):
+
+   """ Handles creating, reading, updating and deleting  (CRUD) feeds """
+   # Tell DJando which serializer we'll be using for this endpoint.
+   serializer_class = serializers.FeedItemSerializer
+
+   # Tells the viewset how to retrieve the objects from the database.
+   queryset = models.FeedItem.objects.all()
+   
+   authentication_classes = (TokenAuthentication, )
+
+   def perform_create(self, serializer):
+      """ Sets the feed to the currently logged in user """
+      serializer.save(user_profile=self.request.user)
