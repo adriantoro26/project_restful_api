@@ -1,3 +1,4 @@
-src/restful_api/restful_api/__pycache__/
-src/restful_api/restful_api_app/__pycache__/
-src/restful_api/restful_api_app/migrations/__pycache__/
+src/restful_api/restful_api/__pycache__/*
+!src/restful_api/restful_api/__pycache__/settings.cpython-38.pyc
+src/restful_api/restful_api_app/__pycache__/*
+src/restful_api/restful_api_app/migrations/__pycache__/*
